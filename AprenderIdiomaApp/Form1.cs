@@ -25,6 +25,31 @@ namespace AprenderIdiomaApp
         public void Form1_Load(object sender, EventArgs e)
         {
             synth.Speak("Inicializando la aplicación");
+
+            Grammar grammar = CreateGrammarBuilderSemantics(null);
+            _recognizer.SetInputToDefaultAudioDevice();
+            _recognizer.UnloadAllGrammars();
+            _recognizer.UpdateRecognizerSetting("CFGConfidenceRejectionThreshold", 60);
+            grammar.Enabled = true;
+            _recognizer.LoadGrammar(grammar);
+            _recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(_recognizer_SpeechRecognized);
+            _recognizer.RecognizeAsync(RecognizeMode.Multiple);
+            synth.Speak("Aplicación preparada para reconocer su voz");
+        }
+
+        private void _recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            return;
+        }
+
+        private Grammar CreateGrammarBuilderSemantics(object p)
+        {
+            GrammarBuilder cerrar = "cerrar";
+            Choices frases = new Choices(cerrar);
+       
+            Grammar grammar = new Grammar(frases);
+            grammar.Name = "Poner/Cambiar Fondo";
+            return grammar;
         }
     }
 }
