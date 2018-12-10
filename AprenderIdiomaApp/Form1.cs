@@ -46,14 +46,11 @@ namespace AprenderIdiomaApp
             if (e.Result.Text.Contains("Cerrar") || e.Result.Text.Contains("Salir"))
             {
                 System.Windows.Forms.Application.Exit();
-            } else if (e.Result.Text.Contains("Next question")) {
+            } else if (e.Result.Text.Contains("siguiente")) {
                 int aux = int.Parse(this.question.Text) + 1;
                 this.question.Text = aux.ToString();
             } else if (e.Result.Semantics.ContainsKey("topics")) {
                 this.questionStatement.Text = "animales";
-            } else if (e.Result.Text.Contains("Previous")) {
-                int aux = int.Parse(this.question.Text) - 1;
-                this.question.Text = aux.ToString();
             }
         }
 
@@ -86,10 +83,9 @@ namespace AprenderIdiomaApp
 
           
             
-            Choices next = new Choices(new GrammarBuilder("Next question"));
-            Choices previous = new Choices(new GrammarBuilder("Previous question"));
+            Choices next = new Choices(new GrammarBuilder("Pregunta siguiente"));
 
-            Choices opciones = new Choices(begin, help, closePhrase, selectPhrase, next, previous);
+            Choices opciones = new Choices(begin, help, closePhrase, selectPhrase, next);
             Grammar grammar = new Grammar(opciones);
             
             grammar.Name = "Questions";
