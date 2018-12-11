@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AprenderIdiomaApp.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,12 +19,28 @@ namespace AprenderIdiomaApp
     {
         private SpeechRecognitionEngine _recognizer = new SpeechRecognitionEngine();
         private SpeechSynthesizer synth = new SpeechSynthesizer();
+        private Question[] questions;
+        private int questionIndex;
         public Form1()
         {
             //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             InitializeComponent();
+            InitializeQuestions();
             this.Load += Form1_Load;
+        }
+
+        private void InitializeQuestions()
+        {
+            Topic topic = new Topic("animales", "", "perro");
+            Topic topic1 = new Topic("colores", "", "blanco");
+            Topic[] topics = new Topic[2];
+            topics[0] = topic;
+            topics[1] = topic1;
+            Question question = new Question(topics);
+
+            questions = new Question[1];
+            questions[0] = question;
         }
 
         public void Form1_Load(object sender, EventArgs e)
@@ -50,7 +67,15 @@ namespace AprenderIdiomaApp
                 int aux = int.Parse(this.question.Text) + 1;
                 this.question.Text = aux.ToString();
             } else if (e.Result.Semantics.ContainsKey("topics")) {
-                this.questionStatement.Text = "animales";
+                if (semantics["topics"].Value.ToString().Equals("animales"))
+                {
+                    this.questionStatement.Text = "Este animal es un _________";
+                }
+            } else if (e.Result.Text.Contains("Este animal es un"))
+            {
+                Topic topic = questions[questionIndex].getTopics()[0];
+                if (e.Result.Text.Contains(topic.getResponse())) this.questionStatement.Text = "correct";
+                else this.questionStatement.Text = "incorrect";
             }
         }
 
@@ -81,11 +106,20 @@ namespace AprenderIdiomaApp
             //Help
             GrammarBuilder help = "Necesito ayuda";
 
+
+            GrammarBuilder animals = "Este animal es un";
+            GrammarBuilder dog = "perro";
+            GrammarBuilder cat = "gato";
+            Choices animalsCh = new Choices(dog, cat);
+
+            animals.Append(animalsCh);
+
           
             
             Choices next = new Choices(new GrammarBuilder("Pregunta siguiente"));
 
-            Choices opciones = new Choices(begin, help, closePhrase, selectPhrase, next);
+
+            Choices opciones = new Choices(begin, help, closePhrase, selectPhrase, next, animals);
             Grammar grammar = new Grammar(opciones);
             
             grammar.Name = "Questions";
