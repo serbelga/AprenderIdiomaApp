@@ -32,15 +32,19 @@ namespace AprenderIdiomaApp
 
         private void InitializeQuestions()
         {
-            Topic topic = new Topic("animales", "", "perro");
-            Topic topic1 = new Topic("colores", "", "blanco");
-            Topic[] topics = new Topic[2];
-            topics[0] = topic;
-            topics[1] = topic1;
-            Question question = new Question(topics);
-
-            questions = new Question[1];
-            questions[0] = question;
+            string[][] responses = { new string[]{ "perro", "blanco" }, new string[]{ "gato", "negro" } };
+            string[] topics = { "animales", "colores" };
+            questions = new Question[responses.Length];
+            for (int i = 0; i < responses.Length; i++)
+            {
+                Topic[] t = new Topic[topics.Length];
+                for(int j = 0; j < topics.Length; j++)
+                {
+                    Topic topic = new Topic(topics[j], "", responses[i][j]);
+                    t[j] = topic;
+                }
+                questions[i] = new Question(t);
+            }
         }
 
         public void Form1_Load(object sender, EventArgs e)
@@ -57,56 +61,60 @@ namespace AprenderIdiomaApp
             synth.Speak("Aplicación preparada para reconocer su voz");
         }
 
-        private void _recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-        {
-            SemanticValue semantics = e.Result.Semantics;
-            if (e.Result.Text.Contains("Cerrar") || e.Result.Text.Contains("Salir"))
-            {
-                System.Windows.Forms.Application.Exit();
-            } else if (e.Result.Text.Contains("siguiente")) {
-                int aux = int.Parse(this.question.Text) + 1;
-                this.question.Text = aux.ToString();
-            } else if (e.Result.Semantics.ContainsKey("topics")) {
-                if (semantics["topics"].Value.ToString().Equals("animales"))
-                {
-                    this.questionStatement.Text = "Este animal es un _________";
-                }
-            } else if (e.Result.Text.Contains("Este animal es un"))
-            {
-                Topic topic = questions[questionIndex].getTopics()[0];
-                if (e.Result.Text.Contains(topic.getResponse())) this.questionStatement.Text = "correct";
-                else this.questionStatement.Text = "incorrect";
-            }
-        }
+
+
+
+        
 
         private Grammar CreateGrammarBuilderSemantics(object p)
         {
             //Close Application
-            GrammarBuilder close = "Cerrar";
+            GrammarBuilder close = "Cierra";
             GrammarBuilder exit = "Salir de";
             Choices closeCh = new Choices(close, exit);
             GrammarBuilder application = "la aplicacion";
-            GrammarBuilder closePhrase = new GrammarBuilder(closeCh);
-            closePhrase.Append(application);
+            GrammarBuilder closeApplication = new GrammarBuilder(closeCh);
+            closeApplication.Append(application);
 
-            //Select questions
-            Choices topicsCh = new Choices();
-            GrammarBuilder want = "Quiero cuestiones de";
+            //Select Topics
+            GrammarBuilder want = "Quiero";
+            GrammarBuilder give = "Dame";
+            Choices wantCh = new Choices(want, give);
+            GrammarBuilder issues = "Cuestiones de";
+            GrammarBuilder questions = "Preguntas de";
+            Choices questionsCh = new Choices(issues, questions);
+
             SemanticResultValue semanticResultValue = new SemanticResultValue("animales", "animales");
             GrammarBuilder resultValueBuilder = new GrammarBuilder(semanticResultValue);
+            Choices topicsCh = new Choices();
             topicsCh.Add(resultValueBuilder);
-            SemanticResultKey semanticResultKey = new SemanticResultKey("topics", topicsCh);
+            semanticResultValue = new SemanticResultValue("colores", "colores");
+            resultValueBuilder = new GrammarBuilder(semanticResultValue);
+            topicsCh.Add(resultValueBuilder);
+            SemanticResultKey semanticResultKey = new SemanticResultKey("topic1", topicsCh);
             GrammarBuilder topics = new GrammarBuilder(semanticResultKey);
-            GrammarBuilder selectPhrase = want;
-            selectPhrase.Append(topics);
+            GrammarBuilder wantQuestions = wantCh;
+            wantQuestions.Append(questionsCh);
+            wantQuestions.Append(topics);
+
+            //Select Topics Extended
+            GrammarBuilder wantQuestionsExtended = wantCh;
+            wantQuestionsExtended.Append(questionsCh);
+            wantQuestionsExtended.Append(topics);
+            wantQuestionsExtended.Append("y");
+            semanticResultKey = new SemanticResultKey("topic2", topicsCh);
+            topics = new GrammarBuilder(semanticResultKey);
+            wantQuestionsExtended.Append(topics);
+            Choices select = new Choices(wantQuestions, wantQuestionsExtended);
+            
 
             //Begin again
-            GrammarBuilder begin = "Quiero empezar de nuevo";
+            GrammarBuilder beginAgain = "Quiero empezar de nuevo";
 
             //Help
-            GrammarBuilder help = "Necesito ayuda";
+            GrammarBuilder needHelp = "Necesito ayuda";
 
-
+            //Answers
             GrammarBuilder animals = "Este animal es un";
             GrammarBuilder dog = "perro";
             GrammarBuilder cat = "gato";
@@ -119,7 +127,7 @@ namespace AprenderIdiomaApp
             Choices next = new Choices(new GrammarBuilder("Pregunta siguiente"));
 
 
-            Choices opciones = new Choices(begin, help, closePhrase, selectPhrase, next, animals);
+            Choices opciones = new Choices(beginAgain, needHelp, closeApplication, select, next, animals);
             Grammar grammar = new Grammar(opciones);
             
             grammar.Name = "Questions";
@@ -129,6 +137,39 @@ namespace AprenderIdiomaApp
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void _recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            SemanticValue semantics = e.Result.Semantics;
+            if (e.Result.Text.Contains("Cierra") || e.Result.Text.Contains("Salir"))
+            {
+                System.Windows.Forms.Application.Exit();
+            }
+            else if (e.Result.Text.Contains("siguiente"))
+            {
+                int aux = int.Parse(this.question.Text) + 1;
+                this.question.Text = aux.ToString();
+                questionIndex++;
+            }
+            else if (e.Result.Text.Contains("y"))
+            {
+
+            }
+            else if (e.Result.Semantics.ContainsKey("topics"))
+            {
+                if (semantics["topics"].Value.ToString().Equals("animales"))
+                {
+                    this.questionStatement.Text = "Este animal es un _________";
+                }
+            }
+            else if (e.Result.Text.Contains("Este animal es un"))
+            {
+                Topic topic = questions[questionIndex].getTopics()[0];
+                if (e.Result.Text.Contains(topic.getResponse())) this.questionStatement.Text = "correct";
+                else this.questionStatement.Text = "incorrect";
+                questionIndex++;
+            }
         }
     }
 }
