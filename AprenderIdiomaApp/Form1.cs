@@ -61,11 +61,6 @@ namespace AprenderIdiomaApp
             synth.Speak("Aplicación preparada para reconocer su voz");
         }
 
-
-
-
-        
-
         private Grammar CreateGrammarBuilderSemantics(object p)
         {
             //Close Application
@@ -109,13 +104,15 @@ namespace AprenderIdiomaApp
             
 
             //Begin again
-            GrammarBuilder beginAgain = "Quiero empezar de nuevo";
+            GrammarBuilder beginAgain = "Empezar de nuevo";
 
             //Help
             GrammarBuilder needHelp = "Necesito ayuda";
 
             //Answers
             GrammarBuilder animals = "Este animal es un";
+
+
             GrammarBuilder dog = "perro";
             GrammarBuilder cat = "gato";
             Choices animalsCh = new Choices(dog, cat);
@@ -134,39 +131,71 @@ namespace AprenderIdiomaApp
             return grammar;
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void beginAgain()
         {
+            //Cuestiones Label a 0
+            //Índice de cuestiones a 0
+            //Reset
+        }
 
+        private void nextCuestion()
+        {
+            //Actualizar Cuestiones Label
+            //Modificar Índice de cuestiones
+            //Modificar Pregunta
+            //Actualizar correctas
+            //Actualizar estado resultados
+            //Última pregunta? Mostrar resultado
+        }
+
+        private void showResult()
+        {
+            //Mostrar ventana resultado
+            //Esperar reset
         }
 
         private void _recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             SemanticValue semantics = e.Result.Semantics;
-            if (e.Result.Text.Contains("Cierra") || e.Result.Text.Contains("Salir"))
+            string text = e.Result.Text;
+            
+            //Orders
+            if (text.Contains("Cierra") || e.Result.Text.Contains("Salir"))
             {
                 System.Windows.Forms.Application.Exit();
             }
-            else if (e.Result.Text.Contains("siguiente"))
+            else if (text.Contains("siguiente"))
             {
                 int aux = int.Parse(this.question.Text) + 1;
                 this.question.Text = aux.ToString();
                 questionIndex++;
             }
-            else if (e.Result.Text.Contains("y"))
+            else if (text.Contains("empezar"))
             {
 
             }
-            else if (e.Result.Semantics.ContainsKey("topics"))
+            else if (text.Contains("y"))
             {
-                if (semantics["topics"].Value.ToString().Equals("animales"))
+                //controlar orden
+                if (semantics["topic1"].Value.ToString().Equals("animales") && semantics["topic2"].Value.ToString().Equals("colores"))
                 {
-                    this.questionStatement.Text = "Este animal es un _________";
+                    this.questionStatement.Text = "Este animal es un _________ de color _________-";
                 }
             }
-            else if (e.Result.Text.Contains("Este animal es un"))
+            else if (semantics.ContainsKey("topic1"))
+            {
+                if (semantics["topic1"].Value.ToString().Equals("animales"))
+                {
+                    this.questionStatement.Text = "Este animal es un _________";
+                } else if (semantics["topic1"].Value.ToString().Equals("colores"))
+                {
+                    this.questionStatement.Text = "Este color es el _________";
+                }
+            }
+            else if (text.Contains("Este animal es un"))
             {
                 Topic topic = questions[questionIndex].getTopics()[0];
-                if (e.Result.Text.Contains(topic.getResponse())) this.questionStatement.Text = "correct";
+                if (text.Contains(topic.getResponse())) this.questionStatement.Text = "correct";
                 else this.questionStatement.Text = "incorrect";
                 questionIndex++;
             }
