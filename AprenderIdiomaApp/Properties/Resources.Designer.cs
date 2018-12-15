@@ -63,9 +63,9 @@ namespace AprenderIdiomaApp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1 {
+        internal static System.Drawing.Bitmap animales_0 {
             get {
-                object obj = ResourceManager.GetObject("1", resourceCulture);
+                object obj = ResourceManager.GetObject("animales_0", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace AprenderIdiomaApp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _11 {
+        internal static System.Drawing.Bitmap animales_1 {
             get {
-                object obj = ResourceManager.GetObject("11", resourceCulture);
+                object obj = ResourceManager.GetObject("animales_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace AprenderIdiomaApp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _2 {
+        internal static System.Drawing.Bitmap animales_2 {
             get {
-                object obj = ResourceManager.GetObject("2", resourceCulture);
+                object obj = ResourceManager.GetObject("animales_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace AprenderIdiomaApp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _3 {
+        internal static System.Drawing.Bitmap globe {
             get {
-                object obj = ResourceManager.GetObject("3", resourceCulture);
+                object obj = ResourceManager.GetObject("globe", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

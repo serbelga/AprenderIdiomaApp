@@ -28,14 +28,17 @@ namespace AprenderIdiomaApp
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             InitializeComponent();
             InitializeQuestions();
-            pictureBox1.Image = AprenderIdiomaApp.Properties.Resources._1;
+            pictureBox1.Image = AprenderIdiomaApp.Properties.Resources.globe;
             this.Load += Form1_Load;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
         }
 
+        /**
+         * Questions Creation
+         */
         private void InitializeQuestions()
         {
-            string[][] responses = { new string[]{ "perro", "blanco" }, new string[]{ "gato", "negro" } };
+            string[][] responses = { new string[]{ "perro", "blanco" }, new string[]{ "gato", "negro" }, new string[] { "pajaro", "negro" } };
             string[] topics = { "animales", "colores" };
             questions = new Question[responses.Length];
             for (int i = 0; i < responses.Length; i++)
@@ -43,7 +46,7 @@ namespace AprenderIdiomaApp
                 Topic[] t = new Topic[topics.Length];
                 for(int j = 0; j < topics.Length; j++)
                 {
-                    Topic topic = new Topic(topics[j], "/Assets/" + i.ToString() + ".jpg", responses[i][j]);
+                    Topic topic = new Topic(topics[j], topics[j] + "_" + i, responses[i][j]);
                     t[j] = topic;
                 }
                 questions[i] = new Question(t);
@@ -64,6 +67,9 @@ namespace AprenderIdiomaApp
             synth.Speak("Aplicación preparada para reconocer su voz");
         }
 
+        /**
+         * Grammar Creation
+         */ 
         private Grammar CreateGrammarBuilderSemantics(object p)
         {
             //Close Application
@@ -113,12 +119,15 @@ namespace AprenderIdiomaApp
             GrammarBuilder needHelp = "Necesito ayuda";
 
             //Answers
+
+            //Animals Answers
             GrammarBuilder animals = "Este animal es un";
 
 
             GrammarBuilder dog = "perro";
             GrammarBuilder cat = "gato";
-            Choices animalsCh = new Choices(dog, cat);
+            GrammarBuilder bird = "pájaro";
+            Choices animalsCh = new Choices(dog, cat, bird);
 
             animals.Append(animalsCh);
 
@@ -147,7 +156,7 @@ namespace AprenderIdiomaApp
             //Reset Texto de pregunta a Bienvenida
             this.questionStatement.Text = "Choose a question topic";
             //Eliminar imagen
-            pictureBox1.Image = null;
+            pictureBox1.Image = AprenderIdiomaApp.Properties.Resources.globe;
             this.currentTopics = new string[] { };
         }
 
@@ -158,17 +167,18 @@ namespace AprenderIdiomaApp
         { 
             if (currentTopics.Length == 0)
             {
-                this.questionStatement.Text = "Debe seleccionar un tema";
+                this.questionStatement.Text = "You must choose a topic";
                 return;
             }
-            //Modificar Índice de cuestiones
-            this.questionIndex++;
             //Última pregunta? Mostrar resultado
-            if (this.questionNumber.Text.Equals("2"))
+            if (this.questionNumber.Text.Equals("3"))
             {
                 ShowResult();
                 return;
             }
+            //Modificar Índice de cuestiones
+            this.questionIndex++;
+            SetImage();
             //Modificar label cuestiones
             int aux = int.Parse(this.questionNumber.Text) + 1;
             this.questionNumber.Text = aux.ToString();
@@ -188,6 +198,11 @@ namespace AprenderIdiomaApp
             NextCuestion();
         }
 
+        private void CheckCurrentTopic(String[] topics)
+        {
+            
+        }
+
 
         private void UpdateCuestion()
         {
@@ -203,7 +218,10 @@ namespace AprenderIdiomaApp
             BeginAgain();
         }
 
-        private void closeApplication()
+        /**
+         * Exit from Application
+         */ 
+        private void CloseApplication()
         {
             System.Windows.Forms.Application.Exit();
         }
@@ -211,6 +229,13 @@ namespace AprenderIdiomaApp
         private void showError()
         {
             this.questionStatement.Text = "Error";
+        }
+
+
+        private void SetImage()
+        {
+            String a = questions[questionIndex].getTopics()[0].getUrl();
+            pictureBox1.Image = (Bitmap)Properties.Resources.ResourceManager.GetObject(a);
         }
 
         private void _recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -221,7 +246,7 @@ namespace AprenderIdiomaApp
             //Orders
             if (text.Contains("Cierra") || e.Result.Text.Contains("Salir"))
             {
-                closeApplication();
+                CloseApplication();
             }
             else if (text.Contains("siguiente"))
             {
@@ -256,16 +281,28 @@ namespace AprenderIdiomaApp
                 {
                     this.questionStatement.Text = "Este animal es un _________";
                     currentTopics = new String[] { "animales" };
+                    this.questionNumber.Text = "1";
+                    SetImage();
                 } else if (semantics["topic1"].Value.ToString().Equals("colores"))
                 {
                     this.questionStatement.Text = "Este color es el _________";
                     currentTopics = new String[] { "colores" };
+                    this.questionNumber.Text = "1";
                 }
             }
             else if (text.Contains("Este animal es un"))
             {
+                //Check if the topic is animales
+                //Check if correct
                 CheckCorrect(text);
                 
+            }
+            else if (text.Contains("Este color es el"))
+            {
+                //Check if the topic is colores
+                //Check if correct
+                CheckCorrect(text);
+
             }
         }
     }

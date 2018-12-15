@@ -17,5 +17,10 @@
         {
             return this.response;
         }
+
+        public string getUrl()
+        {
+            return this.url;
+        }
     }
 }
