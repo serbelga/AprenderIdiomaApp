@@ -44,17 +44,19 @@ namespace AprenderIdiomaApp
             // 
             // questionStatement
             // 
+            this.questionStatement.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.questionStatement.AutoSize = true;
             this.questionStatement.BackColor = System.Drawing.Color.Salmon;
             this.questionStatement.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.questionStatement.ForeColor = System.Drawing.SystemColors.Window;
-            this.questionStatement.Location = new System.Drawing.Point(223, 173);
+            this.questionStatement.Location = new System.Drawing.Point(231, 187);
             this.questionStatement.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.questionStatement.Name = "questionStatement";
             this.questionStatement.Padding = new System.Windows.Forms.Padding(20);
-            this.questionStatement.Size = new System.Drawing.Size(552, 89);
+            this.questionStatement.Size = new System.Drawing.Size(466, 89);
             this.questionStatement.TabIndex = 5;
-            this.questionStatement.Text = "Choose a question topic jljljl";
+            this.questionStatement.Text = "Choose a question topic";
             this.questionStatement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
