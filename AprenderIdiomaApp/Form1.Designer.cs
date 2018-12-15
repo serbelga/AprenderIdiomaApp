@@ -39,6 +39,7 @@ namespace AprenderIdiomaApp
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.result = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -125,6 +126,7 @@ namespace AprenderIdiomaApp
             // 
             this.flowLayoutPanel1.Controls.Add(this.questionStatement);
             this.flowLayoutPanel1.Controls.Add(this.pictureBox1);
+            this.flowLayoutPanel1.Controls.Add(this.result);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 110);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -151,6 +153,15 @@ namespace AprenderIdiomaApp
             this.pictureBox2.Size = new System.Drawing.Size(1008, 110);
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
+            // 
+            // result
+            // 
+            this.result.AutoSize = true;
+            this.result.Location = new System.Drawing.Point(611, 97);
+            this.result.Name = "result";
+            this.result.Size = new System.Drawing.Size(109, 25);
+            this.result.TabIndex = 7;
+            this.result.Text = "Resultado";
             // 
             // Form1
             // 
@@ -187,6 +198,7 @@ namespace AprenderIdiomaApp
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label correctNumber;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label result;
     }
 }
 

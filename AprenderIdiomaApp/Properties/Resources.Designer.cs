@@ -83,9 +83,39 @@ namespace AprenderIdiomaApp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap animales_2 {
+        internal static System.Drawing.Bitmap animales_colores_0 {
             get {
-                object obj = ResourceManager.GetObject("animales_2", resourceCulture);
+                object obj = ResourceManager.GetObject("animales_colores_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap colores_0 {
+            get {
+                object obj = ResourceManager.GetObject("colores_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap colores_1 {
+            get {
+                object obj = ResourceManager.GetObject("colores_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap colores_2 {
+            get {
+                object obj = ResourceManager.GetObject("colores_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
