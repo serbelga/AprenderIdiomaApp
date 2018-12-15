@@ -20,6 +20,7 @@ namespace AprenderIdiomaApp
         private SpeechRecognitionEngine _recognizer = new SpeechRecognitionEngine();
         private SpeechSynthesizer synth = new SpeechSynthesizer();
         private Question[] questions;
+        private String[] currentTopics = new string[] { };
         private int questionIndex;
         public Form1()
         {
@@ -27,7 +28,9 @@ namespace AprenderIdiomaApp
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             InitializeComponent();
             InitializeQuestions();
+            pictureBox1.Image = AprenderIdiomaApp.Properties.Resources._1;
             this.Load += Form1_Load;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
         }
 
         private void InitializeQuestions()
@@ -40,7 +43,7 @@ namespace AprenderIdiomaApp
                 Topic[] t = new Topic[topics.Length];
                 for(int j = 0; j < topics.Length; j++)
                 {
-                    Topic topic = new Topic(topics[j], "", responses[i][j]);
+                    Topic topic = new Topic(topics[j], "/Assets/" + i.ToString() + ".jpg", responses[i][j]);
                     t[j] = topic;
                 }
                 questions[i] = new Question(t);
@@ -53,7 +56,7 @@ namespace AprenderIdiomaApp
             Grammar grammar = CreateGrammarBuilderSemantics(null);
             _recognizer.SetInputToDefaultAudioDevice();
             _recognizer.UnloadAllGrammars();
-            _recognizer.UpdateRecognizerSetting("CFGConfidenceRejectionThreshold", 40);
+            _recognizer.UpdateRecognizerSetting("CFGConfidenceRejectionThreshold", 60);
             grammar.Enabled = true;
             _recognizer.LoadGrammar(grammar);
             _recognizer.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(_recognizer_SpeechRecognized);
@@ -131,27 +134,83 @@ namespace AprenderIdiomaApp
             return grammar;
         }
 
-        private void beginAgain()
+        /**
+         * Restarts the questions serie 
+         */ 
+        private void BeginAgain()
         {
             //Cuestiones Label a 0
+            this.correctNumber.Text = "0";
+            this.questionNumber.Text = "0";
             //Índice de cuestiones a 0
-            //Reset
+            this.questionIndex = 0;
+            //Reset Texto de pregunta a Bienvenida
+            this.questionStatement.Text = "Choose a question topic";
+            //Eliminar imagen
+            pictureBox1.Image = null;
+            this.currentTopics = new string[] { };
         }
 
-        private void nextCuestion()
-        {
-            //Actualizar Cuestiones Label
+        /**
+         * Passes to the next cuestion
+         */ 
+        private void NextCuestion()
+        { 
+            if (currentTopics.Length == 0)
+            {
+                this.questionStatement.Text = "Debe seleccionar un tema";
+                return;
+            }
             //Modificar Índice de cuestiones
-            //Modificar Pregunta
-            //Actualizar correctas
-            //Actualizar estado resultados
+            this.questionIndex++;
             //Última pregunta? Mostrar resultado
+            if (this.questionNumber.Text.Equals("2"))
+            {
+                ShowResult();
+                return;
+            }
+            //Modificar label cuestiones
+            int aux = int.Parse(this.questionNumber.Text) + 1;
+            this.questionNumber.Text = aux.ToString();
         }
 
-        private void showResult()
+        /**
+         * Checks if question is correct
+         */ 
+        private void CheckCorrect(String text)
+        {
+            Topic topic = questions[questionIndex].getTopics()[0];
+            if (text.Contains(topic.getResponse()))
+            {
+                int aux = int.Parse(this.correctNumber.Text) + 1;
+                this.correctNumber.Text = aux.ToString();
+            }
+            NextCuestion();
+        }
+
+
+        private void UpdateCuestion()
+        {
+            //Ver topico
+            //Montar pregunta
+        }
+
+        private void ShowResult()
         {
             //Mostrar ventana resultado
+            this.questionStatement.Text = "final";
             //Esperar reset
+            BeginAgain();
+        }
+
+        private void closeApplication()
+        {
+            System.Windows.Forms.Application.Exit();
+        }
+
+        private void showError()
+        {
+            this.questionStatement.Text = "Error";
         }
 
         private void _recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -162,17 +221,15 @@ namespace AprenderIdiomaApp
             //Orders
             if (text.Contains("Cierra") || e.Result.Text.Contains("Salir"))
             {
-                System.Windows.Forms.Application.Exit();
+                closeApplication();
             }
             else if (text.Contains("siguiente"))
             {
-                int aux = int.Parse(this.question.Text) + 1;
-                this.question.Text = aux.ToString();
-                questionIndex++;
+                NextCuestion();   
             }
-            else if (text.Contains("empezar"))
+            else if (text.Contains("Empezar"))
             {
-
+                BeginAgain();
             }
             else if (text.Contains("y"))
             {
@@ -180,6 +237,17 @@ namespace AprenderIdiomaApp
                 if (semantics["topic1"].Value.ToString().Equals("animales") && semantics["topic2"].Value.ToString().Equals("colores"))
                 {
                     this.questionStatement.Text = "Este animal es un _________ de color _________-";
+                    currentTopics = new String[] { "animales", "colores" };
+                } 
+                else if (semantics["topic1"].Value.ToString().Equals("colores") && semantics["topic2"].Value.ToString().Equals("animales"))
+                {
+                    this.questionStatement.Text = "Este animal es un _________ de color _________-";
+                    currentTopics = new String[] { "animales", "colores" };
+                }
+                else if (semantics["topic1"].Value.ToString().Equals(semantics["topic2"].Value.ToString()))
+                {
+                    showError();
+                    currentTopics = new String[] { };
                 }
             }
             else if (semantics.ContainsKey("topic1"))
@@ -187,17 +255,17 @@ namespace AprenderIdiomaApp
                 if (semantics["topic1"].Value.ToString().Equals("animales"))
                 {
                     this.questionStatement.Text = "Este animal es un _________";
+                    currentTopics = new String[] { "animales" };
                 } else if (semantics["topic1"].Value.ToString().Equals("colores"))
                 {
                     this.questionStatement.Text = "Este color es el _________";
+                    currentTopics = new String[] { "colores" };
                 }
             }
             else if (text.Contains("Este animal es un"))
             {
-                Topic topic = questions[questionIndex].getTopics()[0];
-                if (text.Contains(topic.getResponse())) this.questionStatement.Text = "correct";
-                else this.questionStatement.Text = "incorrect";
-                questionIndex++;
+                CheckCorrect(text);
+                
             }
         }
     }

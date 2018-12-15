@@ -1,4 +1,6 @@
-﻿namespace AprenderIdiomaApp
+﻿using System.Drawing;
+
+namespace AprenderIdiomaApp
 {
     partial class Form1
     {
@@ -28,111 +30,146 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.question = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.correct = new System.Windows.Forms.Label();
             this.questionStatement = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.questionNumber = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.correctNumber = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
-            // question
+            // questionStatement
             // 
-            this.question.AutoSize = true;
-            this.question.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.question.Location = new System.Drawing.Point(910, 729);
-            this.question.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(41, 44);
-            this.question.TabIndex = 0;
-            this.question.Text = "1";
+            this.questionStatement.AutoSize = true;
+            this.questionStatement.BackColor = System.Drawing.Color.Salmon;
+            this.questionStatement.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.questionStatement.ForeColor = System.Drawing.SystemColors.Window;
+            this.questionStatement.Location = new System.Drawing.Point(223, 173);
+            this.questionStatement.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.questionStatement.Name = "questionStatement";
+            this.questionStatement.Padding = new System.Windows.Forms.Padding(20);
+            this.questionStatement.Size = new System.Drawing.Size(552, 89);
+            this.questionStatement.TabIndex = 5;
+            this.questionStatement.Text = "Choose a question topic jljljl";
+            this.questionStatement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // pictureBox1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(716, 729);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(186, 49);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Question:";
+            this.pictureBox1.Image = global::AprenderIdiomaApp.Properties.Resources._2;
+            this.pictureBox1.Location = new System.Drawing.Point(265, 295);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(482, 350);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.IndianRed;
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(1008, 110);
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.IndianRed;
+            this.label1.Font = new System.Drawing.Font("Verdana", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Window;
+            this.label1.Location = new System.Drawing.Point(34, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(191, 45);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "LinguApp";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Trebuchet MS", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label3.Location = new System.Drawing.Point(24, 17);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label3.BackColor = System.Drawing.Color.IndianRed;
+            this.label3.Font = new System.Drawing.Font("Verdana", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Window;
+            this.label3.Location = new System.Drawing.Point(711, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(205, 54);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "LearnApp";
+            this.label3.Size = new System.Drawing.Size(203, 45);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Pregunta:";
             // 
-            // label4
+            // questionNumber
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(716, 775);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 49);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Correct:";
+            this.questionNumber.AutoSize = true;
+            this.questionNumber.BackColor = System.Drawing.Color.IndianRed;
+            this.questionNumber.Font = new System.Drawing.Font("Verdana", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.questionNumber.ForeColor = System.Drawing.SystemColors.Window;
+            this.questionNumber.Location = new System.Drawing.Point(920, 9);
+            this.questionNumber.Name = "questionNumber";
+            this.questionNumber.Size = new System.Drawing.Size(44, 45);
+            this.questionNumber.TabIndex = 10;
+            this.questionNumber.Text = "1";
             // 
-            // correct
+            // label2
             // 
-            this.correct.AutoSize = true;
-            this.correct.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.correct.Location = new System.Drawing.Point(910, 775);
-            this.correct.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.correct.Name = "correct";
-            this.correct.Size = new System.Drawing.Size(41, 44);
-            this.correct.TabIndex = 4;
-            this.correct.Text = "1";
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.IndianRed;
+            this.label2.Font = new System.Drawing.Font("Verdana", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.Window;
+            this.label2.Location = new System.Drawing.Point(711, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(214, 45);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Correctas:";
             // 
-            // questionStatement
+            // correctNumber
             // 
-            this.questionStatement.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.questionStatement.AutoSize = true;
-            this.questionStatement.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionStatement.Location = new System.Drawing.Point(376, 686);
-            this.questionStatement.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.questionStatement.Name = "questionStatement";
-            this.questionStatement.Size = new System.Drawing.Size(225, 49);
-            this.questionStatement.TabIndex = 5;
-            this.questionStatement.Text = "La pregunta";
-            this.questionStatement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.correctNumber.AutoSize = true;
+            this.correctNumber.BackColor = System.Drawing.Color.IndianRed;
+            this.correctNumber.Font = new System.Drawing.Font("Verdana", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.correctNumber.ForeColor = System.Drawing.SystemColors.Window;
+            this.correctNumber.Location = new System.Drawing.Point(920, 54);
+            this.correctNumber.Name = "correctNumber";
+            this.correctNumber.Size = new System.Drawing.Size(44, 45);
+            this.correctNumber.TabIndex = 12;
+            this.correctNumber.Text = "1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1008, 865);
-            this.Controls.Add(this.questionStatement);
-            this.Controls.Add(this.correct);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(1008, 919);
+            this.Controls.Add(this.correctNumber);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.question);
+            this.Controls.Add(this.questionNumber);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.questionStatement);
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label question;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label correct;
         private System.Windows.Forms.Label questionStatement;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label questionNumber;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label correctNumber;
     }
 }
 
