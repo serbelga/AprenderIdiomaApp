@@ -21,6 +21,7 @@ namespace AprenderIdiomaApp
         private SpeechSynthesizer synth = new SpeechSynthesizer();
         private Question[] questions;
         private string currentTopic = "";
+        private int correct = 0;
         private Dictionary<string, int> topics = new Dictionary<string, int>();
         private int questionIndex;
         public Form1()
@@ -40,7 +41,7 @@ namespace AprenderIdiomaApp
          */
         private void InitializeQuestions()
         {
-            string[][] responses = { new string[]{ "perro", "rojo", "gato_negro" }, new string[]{ "gato", "amarillo", "gato_negro" }, new string[] { "pajaro", "verde", "gato_negro" } };
+            string[][] responses = { new string[]{ "perro", "rojo", "gato_negro" }, new string[]{ "gato", "amarillo", "gato_negro" }, new string[] { "rana", "verde", "canario_amarillo" } };
             string[] topics = { "animales", "colores", "animales_colores" };
             questions = new Question[responses.Length];
             for (int i = 0; i < responses.Length; i++)
@@ -128,52 +129,153 @@ namespace AprenderIdiomaApp
             GrammarBuilder needHelp = "Necesito ayuda";
 
             //Answers
+            //Multiple Answers
+            
+            GrammarBuilder animalsColorsAnswers = new GrammarBuilder("Este animal es un");
 
+            Choices animalsCh = new Choices();
+            string[] animalsList = new string[] { "perro", "gato", "pajaro", "caballo", "rana", "canario" };
+            for (int i = 0; i < animalsList.Length; i++)
+            {
+                semanticResultValue = new SemanticResultValue(animalsList[i], animalsList[i]);
+                resultValueBuilder = new GrammarBuilder(semanticResultValue);
+                animalsCh.Add(resultValueBuilder);
+            }
+            semanticResultKey = new SemanticResultKey("animals", animalsCh);
+            GrammarBuilder animals = new GrammarBuilder(semanticResultKey);
+            animalsColorsAnswers.Append(animals);
+
+            animalsColorsAnswers.Append(new GrammarBuilder("de color"));
+
+
+            Choices colorsCh = new Choices();
+            string[] colorsList = new string[] { "negro", "blanco", "rojo", "azul", "naranja", "morado", "amarillo", "verde" };
+            for(int i = 0; i < colorsList.Length; i++)
+            {
+                semanticResultValue = new SemanticResultValue(colorsList[i], colorsList[i]);
+                resultValueBuilder = new GrammarBuilder(semanticResultValue);
+                colorsCh.Add(resultValueBuilder);
+            }
+            semanticResultKey = new SemanticResultKey("colors", colorsCh);
+            GrammarBuilder colors = new GrammarBuilder(semanticResultKey);
+            animalsColorsAnswers.Append(colors);
+            
             //Animals Answers
-            GrammarBuilder animals = "Este animal es un";
-
-
-            GrammarBuilder dog = "perro";
-            GrammarBuilder cat = "gato";
-            GrammarBuilder bird = "pajaro";
-            Choices animalsCh = new Choices(dog, cat, bird);
-
-            animals.Append(animalsCh);
-
+            GrammarBuilder animalsAnswers = "Este animal es un";
+            animalsAnswers.Append(animals);
 
             //Colors Answers
-            GrammarBuilder colors = "Este color es el";
+            GrammarBuilder colorsAnswers = "Este color es el";
+            colorsAnswers.Append(colors);
 
+            //Next question
+            Choices nextQuestion = new Choices("pregunta siguiente", "siguiente pregunta");
 
-            GrammarBuilder red = "rojo";
-            GrammarBuilder yellow = "amarillo";
-            GrammarBuilder green = "verde";
-            Choices colorsCh = new Choices(red, yellow, green);
-            colors.Append(colorsCh);
-
-            Choices next = new Choices(new GrammarBuilder("Pregunta siguiente"));
-
-
-            Choices opciones = new Choices(beginAgain, needHelp, closeApplication, select, next, animals, colors);
+        
+            Choices opciones = new Choices(beginAgain, needHelp, closeApplication, select, nextQuestion, animalsAnswers, colorsAnswers, animalsColorsAnswers);
             Grammar grammar = new Grammar(opciones);
             
             grammar.Name = "Questions";
             return grammar;
         }
 
+        #region Recognizer
+        private void _recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            SemanticValue semantics = e.Result.Semantics;
+            string text = e.Result.Text;
+
+            //Orders
+            if (text.Contains("Cierra") || e.Result.Text.Contains("Salir"))
+            {
+                CloseApplication();
+            }
+            else if (text.Contains("siguiente"))
+            {
+                NextCuestion();
+            }
+            else if (text.Contains("Empezar"))
+            {
+                BeginAgain();
+            }
+            else if (text.Contains("y"))
+            {
+                //Control order
+                if (semantics["topic1"].Value.ToString().Equals("animales") && semantics["topic2"].Value.ToString().Equals("colores"))
+                {
+                    this.questionStatement.Text = "Este animal es un _________ de color _________";
+                    currentTopic = "animales_colores";
+                    int currentQuestion = questionIndex + 1;
+                    this.questionNumber.Text = currentQuestion.ToString();
+                    SetImage();
+                }
+                else if (semantics["topic1"].Value.ToString().Equals("colores") && semantics["topic2"].Value.ToString().Equals("animales"))
+                {
+                    this.questionStatement.Text = "Este animal es un _________ de color _________";
+                    currentTopic = "animales_colores";
+                    int currentQuestion = questionIndex + 1;
+                    this.questionNumber.Text = currentQuestion.ToString();
+                    SetImage();
+                }
+                else if (semantics["topic1"].Value.ToString().Equals(semantics["topic2"].Value.ToString()))
+                {
+                    ShowError();
+                }
+            }
+            else if (semantics.ContainsKey("topic1"))
+            {
+                if (semantics["topic1"].Value.ToString().Equals("animales"))
+                {
+                    this.questionStatement.Text = "Este animal es un _________";
+                    currentTopic = "animales";
+                    int currentQuestion = questionIndex + 1;
+                    this.questionNumber.Text = currentQuestion.ToString();
+                    SetImage();
+                }
+                else if (semantics["topic1"].Value.ToString().Equals("colores"))
+                {
+                    this.questionStatement.Text = "Este color es el _________";
+                    currentTopic = "colores";
+                    int currentQuestion = questionIndex + 1;
+                    this.questionNumber.Text = currentQuestion.ToString();
+                    SetImage();
+                }
+            }
+            else if (text.Contains("de color"))
+            {
+                if (currentTopic.Equals("animales_colores")) CheckCorrect(semantics["animals"].Value.ToString() + "_" + semantics["colors"].Value.ToString());
+            }
+
+            else if (text.Contains("Este animal es un"))
+            {
+                //Check if the topic is animales
+                if (currentTopic.Equals("animales")) CheckCorrect(semantics["animals"].Value.ToString());
+
+            }
+            else if (text.Contains("Este color es el"))
+            {
+                //Check if the topic is colores
+                if (currentTopic.Equals("colores")) CheckCorrect(semantics["colors"].Value.ToString());
+            }
+            
+            
+        }
+        #endregion
+
+        #region Actions
         /**
          * Restarts the questions serie 
-         */ 
+         */
         private void BeginAgain()
         {
-            //Cuestiones Label a 0
+            //Numbers to 0
             this.correctNumber.Text = "0";
+            this.correct = 0;
             this.questionNumber.Text = "0";
-            //Índice de cuestiones a 0
             this.questionIndex = 0;
-            //Reset Texto de pregunta a Bienvenida
+            //Reset the question text
             this.questionStatement.Text = "Choose a question topic";
-            //Eliminar imagen
+            //Presentation image
             pictureBox1.Image = AprenderIdiomaApp.Properties.Resources.globe;
             this.currentTopic = "";
         }
@@ -188,16 +290,16 @@ namespace AprenderIdiomaApp
                 this.questionStatement.Text = "You must choose a topic";
                 return;
             }
-            //Última pregunta? Mostrar resultado
+            //Last question? Show Result
             if (this.questionNumber.Text.Equals("3"))
             {
                 ShowResult();
                 return;
             }
-            //Modificar Índice de cuestiones
+            //Modify questions index
             this.questionIndex++;
             SetImage();
-            //Modificar label cuestiones
+            //Modify questions label
             int aux = int.Parse(this.questionNumber.Text) + 1;
             this.questionNumber.Text = aux.ToString();
         }
@@ -211,8 +313,8 @@ namespace AprenderIdiomaApp
             Topic topic = questions[questionIndex].getTopics()[topicIndex];
             if (text.Contains(topic.getResponse()))
             {
-                int aux = int.Parse(this.correctNumber.Text) + 1;
-                this.correctNumber.Text = aux.ToString();
+                correct++;
+                this.correctNumber.Text = correct.ToString();
             }
             NextCuestion();
         }
@@ -226,7 +328,14 @@ namespace AprenderIdiomaApp
 
         private void ShowResult()
         {
-            //Mostrar ventana resultado
+            //Show results window
+            if(this.correct == 0)
+            {
+                pictureBox1.Image = AprenderIdiomaApp.Properties.Resources.very_dissatisfied;
+            } else
+            {
+                pictureBox1.Image = AprenderIdiomaApp.Properties.Resources.very_satisfied;
+            }
             this.questionStatement.Text = "final";
         }
 
@@ -238,92 +347,25 @@ namespace AprenderIdiomaApp
             System.Windows.Forms.Application.Exit();
         }
 
-        private void showError()
+        /**
+         * Shows an error message
+         */ 
+        private void ShowError()
         {
             this.questionStatement.Text = "Error";
         }
 
-
+        /**
+         * Sets the current question image
+         */ 
         private void SetImage()
         {
             int topicIndex = topics[currentTopic];
             String url = questions[questionIndex].getTopics()[topicIndex].getUrl();
             pictureBox1.Image = (Bitmap)Properties.Resources.ResourceManager.GetObject(url);
         }
-
-        private void _recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-        {
-            SemanticValue semantics = e.Result.Semantics;
-            string text = e.Result.Text;
-            
-            //Orders
-            if (text.Contains("Cierra") || e.Result.Text.Contains("Salir"))
-            {
-                CloseApplication();
-            }
-            else if (text.Contains("siguiente"))
-            {
-                NextCuestion();   
-            }
-            else if (text.Contains("Empezar"))
-            {
-                BeginAgain();
-            }
-            else if (text.Contains("y"))
-            {
-                //controlar orden
-                if (semantics["topic1"].Value.ToString().Equals("animales") && semantics["topic2"].Value.ToString().Equals("colores"))
-                {
-                    this.questionStatement.Text = "Este animal es un _________ de color _________";
-                    currentTopic = "animales_colores";
-                    int currentQuestion = questionIndex + 1;
-                    this.questionNumber.Text = currentQuestion.ToString();
-                    SetImage();
-                } 
-                else if (semantics["topic1"].Value.ToString().Equals("colores") && semantics["topic2"].Value.ToString().Equals("animales"))
-                {
-                    this.questionStatement.Text = "Este animal es un _________ de color _________";
-                    currentTopic = "animales_colores";
-                    int currentQuestion = questionIndex + 1;
-                    this.questionNumber.Text = currentQuestion.ToString();
-                    SetImage();
-                }
-                else if (semantics["topic1"].Value.ToString().Equals(semantics["topic2"].Value.ToString()))
-                {
-                    showError();
-                }
-            }
-            else if (semantics.ContainsKey("topic1"))
-            {
-                if (semantics["topic1"].Value.ToString().Equals("animales"))
-                {
-                    this.questionStatement.Text = "Este animal es un _________";
-                    currentTopic = "animales";
-                    int currentQuestion = questionIndex + 1;
-                    this.questionNumber.Text = currentQuestion.ToString();
-                    SetImage();
-                } else if (semantics["topic1"].Value.ToString().Equals("colores"))
-                {
-                    this.questionStatement.Text = "Este color es el _________";
-                    currentTopic = "colores";
-                    int currentQuestion = questionIndex + 1;
-                    this.questionNumber.Text = currentQuestion.ToString();
-                    SetImage();
-                }
-            }
+        #endregion
 
 
-            else if (text.Contains("Este animal es un"))
-            {
-                //Check if the topic is animales
-                if (currentTopic.Equals("animales")) CheckCorrect(text);
-
-            }
-            else if (text.Contains("Este color es el"))
-            {
-                //Check if the topic is animales
-                if (currentTopic.Equals("colores")) CheckCorrect(text);
-            }
-        }
     }
 }
