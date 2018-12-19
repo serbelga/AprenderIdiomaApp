@@ -105,12 +105,15 @@ namespace AprenderIdiomaApp
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.Image = global::AprenderIdiomaApp.Properties.Resources.globe;
             this.pictureBox1.Location = new System.Drawing.Point(210, 216);
+            this.pictureBox1.MaximumSize = new System.Drawing.Size(650, 550);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(602, 534);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.Size = new System.Drawing.Size(568, 534);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
@@ -120,7 +123,7 @@ namespace AprenderIdiomaApp
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox2.Location = new System.Drawing.Point(0, 0);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(1008, 110);
+            this.pictureBox2.Size = new System.Drawing.Size(974, 110);
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             // 
@@ -134,7 +137,7 @@ namespace AprenderIdiomaApp
             this.questionStatement.Margin = new System.Windows.Forms.Padding(6, 8, 6, 0);
             this.questionStatement.Name = "questionStatement";
             this.questionStatement.Padding = new System.Windows.Forms.Padding(20);
-            this.questionStatement.Size = new System.Drawing.Size(1008, 89);
+            this.questionStatement.Size = new System.Drawing.Size(974, 89);
             this.questionStatement.TabIndex = 5;
             this.questionStatement.Text = "Choose a question topic";
             this.questionStatement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -145,11 +148,11 @@ namespace AprenderIdiomaApp
             this.options.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.options.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.options.ForeColor = System.Drawing.SystemColors.Window;
-            this.options.Location = new System.Drawing.Point(0, 874);
+            this.options.Location = new System.Drawing.Point(0, 840);
             this.options.Margin = new System.Windows.Forms.Padding(6, 8, 6, 0);
             this.options.Name = "options";
             this.options.Padding = new System.Windows.Forms.Padding(20);
-            this.options.Size = new System.Drawing.Size(1008, 89);
+            this.options.Size = new System.Drawing.Size(974, 89);
             this.options.TabIndex = 13;
             this.options.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -158,7 +161,7 @@ namespace AprenderIdiomaApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1008, 963);
+            this.ClientSize = new System.Drawing.Size(974, 929);
             this.Controls.Add(this.options);
             this.Controls.Add(this.questionStatement);
             this.Controls.Add(this.pictureBox1);
@@ -169,8 +172,11 @@ namespace AprenderIdiomaApp
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox2);
             this.Margin = new System.Windows.Forms.Padding(6);
+            this.MaximumSize = new System.Drawing.Size(1000, 1000);
+            this.MinimumSize = new System.Drawing.Size(1000, 1000);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);

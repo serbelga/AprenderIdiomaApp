@@ -170,5 +170,26 @@
   <ItemGroup>
     <None Include="Assets\verde.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\caballo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\canario.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\naranja1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\blanco.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\negro.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\gato_negro.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\loro_rojo.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
