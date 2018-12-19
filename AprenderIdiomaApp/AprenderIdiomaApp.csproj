@@ -52,6 +52,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Question1.cs" />
     <Compile Include="Model\Question.cs" />
     <Compile Include="Model\Topic.cs" />
     <Compile Include="Program.cs" />
@@ -138,6 +139,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\animales_colores_2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\gato.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\loro.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\perro.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\rana.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\amarillo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\azul.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\morado.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\naranja.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\rojo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\verde.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

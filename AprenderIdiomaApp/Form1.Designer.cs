@@ -30,37 +30,18 @@ namespace AprenderIdiomaApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.questionStatement = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.questionNumber = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.correctNumber = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.result = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.questionStatement = new System.Windows.Forms.Label();
+            this.options = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
-            // 
-            // questionStatement
-            // 
-            this.questionStatement.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.questionStatement.AutoSize = true;
-            this.questionStatement.BackColor = System.Drawing.Color.RoyalBlue;
-            this.questionStatement.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionStatement.ForeColor = System.Drawing.SystemColors.Window;
-            this.questionStatement.Location = new System.Drawing.Point(6, 8);
-            this.questionStatement.Margin = new System.Windows.Forms.Padding(6, 8, 6, 0);
-            this.questionStatement.Name = "questionStatement";
-            this.questionStatement.Padding = new System.Windows.Forms.Padding(20);
-            this.questionStatement.Size = new System.Drawing.Size(466, 89);
-            this.questionStatement.TabIndex = 5;
-            this.questionStatement.Text = "Choose a question topic";
-            this.questionStatement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -122,22 +103,11 @@ namespace AprenderIdiomaApp
             this.correctNumber.TabIndex = 12;
             this.correctNumber.Text = "0";
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.questionStatement);
-            this.flowLayoutPanel1.Controls.Add(this.pictureBox1);
-            this.flowLayoutPanel1.Controls.Add(this.result);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 110);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1008, 1045);
-            this.flowLayoutPanel1.TabIndex = 14;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.Image = global::AprenderIdiomaApp.Properties.Resources.globe;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 100);
+            this.pictureBox1.Location = new System.Drawing.Point(210, 216);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(602, 534);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -154,22 +124,44 @@ namespace AprenderIdiomaApp
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             // 
-            // result
+            // questionStatement
             // 
-            this.result.AutoSize = true;
-            this.result.Location = new System.Drawing.Point(611, 97);
-            this.result.Name = "result";
-            this.result.Size = new System.Drawing.Size(109, 25);
-            this.result.TabIndex = 7;
-            this.result.Text = "Resultado";
+            this.questionStatement.BackColor = System.Drawing.Color.Teal;
+            this.questionStatement.Dock = System.Windows.Forms.DockStyle.Top;
+            this.questionStatement.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.questionStatement.ForeColor = System.Drawing.SystemColors.Window;
+            this.questionStatement.Location = new System.Drawing.Point(0, 110);
+            this.questionStatement.Margin = new System.Windows.Forms.Padding(6, 8, 6, 0);
+            this.questionStatement.Name = "questionStatement";
+            this.questionStatement.Padding = new System.Windows.Forms.Padding(20);
+            this.questionStatement.Size = new System.Drawing.Size(1008, 89);
+            this.questionStatement.TabIndex = 5;
+            this.questionStatement.Text = "Choose a question topic";
+            this.questionStatement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // options
+            // 
+            this.options.BackColor = System.Drawing.Color.CadetBlue;
+            this.options.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.options.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.options.ForeColor = System.Drawing.SystemColors.Window;
+            this.options.Location = new System.Drawing.Point(0, 874);
+            this.options.Margin = new System.Windows.Forms.Padding(6, 8, 6, 0);
+            this.options.Name = "options";
+            this.options.Padding = new System.Windows.Forms.Padding(20);
+            this.options.Size = new System.Drawing.Size(1008, 89);
+            this.options.TabIndex = 13;
+            this.options.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1008, 1155);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(1008, 963);
+            this.Controls.Add(this.options);
+            this.Controls.Add(this.questionStatement);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.correctNumber);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.questionNumber);
@@ -179,8 +171,6 @@ namespace AprenderIdiomaApp
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
@@ -189,7 +179,6 @@ namespace AprenderIdiomaApp
         }
 
         #endregion
-        private System.Windows.Forms.Label questionStatement;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label1;
@@ -197,8 +186,8 @@ namespace AprenderIdiomaApp
         private System.Windows.Forms.Label questionNumber;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label correctNumber;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label result;
+        private System.Windows.Forms.Label questionStatement;
+        private System.Windows.Forms.Label options;
     }
 }
 

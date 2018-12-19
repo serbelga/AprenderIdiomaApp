@@ -4,18 +4,18 @@
     {
         string description;
         string url;
-        string response;
+        string answer;
 
         public Topic(string description, string url, string response)
         {
             this.description = description;
             this.url = url;
-            this.response = response;
+            this.answer = response;
         }
 
-        public string getResponse()
+        public string getAnswer()
         {
-            return this.response;
+            return this.answer;
         }
 
         public string getUrl()
