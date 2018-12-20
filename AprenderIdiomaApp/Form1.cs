@@ -281,14 +281,14 @@ namespace AprenderIdiomaApp
                     if(difficultyLevel < 2)
                     {
                         difficultyLevel++;
-                        UpdateMultipleOptions();
+                        setQuestionStatement();
                     }
                 } else
                 {
                     if(difficultyLevel > 0)
                     {
                         difficultyLevel--;
-                        UpdateMultipleOptions();
+                        setQuestionStatement();
                     }
                 }
             }
@@ -345,21 +345,13 @@ namespace AprenderIdiomaApp
         {
             Random rnd = new Random();
             questionIndex = rnd.Next(0, currentQuestions.Count);
-            if (currentTopic.Equals("animales"))
-            {
-                this.questionStatement.Text = "Este animal es un _________";
-            } else if (currentTopic.Equals("colores"))
-            {
-                this.questionStatement.Text = "Este color es el __________";
-            } else if (currentTopic.Equals("animales_colores"))
-            {
-                this.questionStatement.Text = "Este animal es un __________ de color __________";
-            }
+            
+            
             if (questionNumber.Text.Equals("0"))
             {
                 questionNumber.Text = "1";
             }
-            UpdateMultipleOptions();
+            setQuestionStatement();
             SetImage();
         }
 
@@ -456,7 +448,7 @@ namespace AprenderIdiomaApp
          * Actualizar parte inferior de opciones
          * Cuando se aumenta o disminuye la dificultad se ofrecen las posibles respuestas al usuario
          */ 
-        private void UpdateMultipleOptions()
+        private void setQuestionStatement()
         {
             if (currentTopic.Length == 0)
             {
@@ -496,6 +488,18 @@ namespace AprenderIdiomaApp
                     break;
                 case 1:
                     //Desaparecen las opciones
+                    if (currentTopic.Equals("animales"))
+                    {
+                        this.questionStatement.Text = "Este animal es un _________";
+                    }
+                    else if (currentTopic.Equals("colores"))
+                    {
+                        this.questionStatement.Text = "Este color es el __________";
+                    }
+                    else if (currentTopic.Equals("animales_colores"))
+                    {
+                        this.questionStatement.Text = "Este animal es un __________ de color __________";
+                    }
                     this.options.Text = "";
                     break;
                 case 2:
@@ -511,6 +515,7 @@ namespace AprenderIdiomaApp
                     {
                         this.questionStatement.Text = "Translate: This animal is a __________ of colour __________";
                     }
+                    this.options.Text = "";
                     break;
             }
         }
