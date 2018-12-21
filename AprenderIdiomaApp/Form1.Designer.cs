@@ -148,7 +148,6 @@ namespace AprenderIdiomaApp
             this.questionStatement.TabIndex = 5;
             this.questionStatement.Text = "Choose a question topic";
             this.questionStatement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.questionStatement.Click += new System.EventHandler(this.questionStatement_Click);
             // 
             // options
             // 

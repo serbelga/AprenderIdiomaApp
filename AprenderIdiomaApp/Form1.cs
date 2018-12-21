@@ -169,6 +169,7 @@ namespace AprenderIdiomaApp
             GrammarBuilder increaseDifficulty = "aumentar dificultad";
             GrammarBuilder decreaseDifficulty = "disminuir dificultad";
             Choices difficulty = new Choices(increaseDifficulty, decreaseDifficulty);
+
             Choices choices = new Choices(beginAgain, needHelp, closeApplication, select, nextQuestion, animalsAnswers, colorsAnswers, animalsColorsAnswers, difficulty);
             Grammar grammar = new Grammar(choices);
             
@@ -297,11 +298,11 @@ namespace AprenderIdiomaApp
 
         #region Actions
         /**
-         * Empezar de nuevo
+         * Begin again
          */
         private void BeginAgain()
         {
-            //Variables a valores iniciales
+            //Initial values
             this.difficultyLevel = 1;
             this.resultsDialog = false;
             this.correctNumber.Text = "0";
@@ -309,12 +310,11 @@ namespace AprenderIdiomaApp
             this.answered = 0;
             this.questionNumber.Text = "0";
             this.questionIndex = 0;
-            //Reset texto de la pregunta
+            //Reset question statement
             this.questionStatement.Text = "Choose a question topic";
-            //Imagen de bienvenida
+            //Welcome image
             pictureBox1.Image = AprenderIdiomaApp.Properties.Resources.globe;
             this.currentTopic = "";
-            //this.currentQuestions = new List<Question1>();
             this.currentQuestions = new List<string>();
         }
 
@@ -334,7 +334,6 @@ namespace AprenderIdiomaApp
             {
                 synth.Speak("Incorrecta");
             }
-            //this.currentQuestions.RemoveAt(questionIndex);
             this.currentQuestions.RemoveAt(questionIndex);
             this.answered++;
             NextCuestion();
@@ -345,8 +344,6 @@ namespace AprenderIdiomaApp
         {
             Random rnd = new Random();
             questionIndex = rnd.Next(0, currentQuestions.Count);
-            
-            
             if (questionNumber.Text.Equals("0"))
             {
                 questionNumber.Text = "1";
@@ -365,21 +362,19 @@ namespace AprenderIdiomaApp
                 this.questionStatement.Text = "You must choose a topic";
                 return;
             }
-            //Última pregunta? Mostrar resultado
+            //Last question? Show result
             if (this.currentQuestions.Count == 0)
             {
                 ShowResult();
                 return;
             }
-            //Modificar el índice de la cuestion
             this.UpdateCuestion();
-            //Modificar el número de pregunta
             int aux = int.Parse(this.questionNumber.Text) + 1;
             this.questionNumber.Text = aux.ToString();
         }
 
         /**
-         * Muestra el resultado cuando no quedan más preguntas
+         * Shows the result when there aren't any more questions
          */ 
         private void ShowResult()
         {
@@ -405,7 +400,7 @@ namespace AprenderIdiomaApp
         }
 
         /**
-         * Muestra mensaje de error
+         * Shows a message error
          */ 
         private void ShowError()
         {
@@ -413,7 +408,7 @@ namespace AprenderIdiomaApp
         }
 
         /**
-         * Modifica la imagen
+         * Modifies the image
          */ 
         private void SetImage()
         {
@@ -422,7 +417,7 @@ namespace AprenderIdiomaApp
         }
 
         /**
-         * Necesito ayuda
+         * Need help
          */ 
         private void NeedHelp()
         {
@@ -436,7 +431,7 @@ namespace AprenderIdiomaApp
         }
 
         /**
-         * Obtiene la respuesta actual
+         * Gets the current answer
          */ 
         private string GetCurrentAnswer()
         {
@@ -445,8 +440,8 @@ namespace AprenderIdiomaApp
         }
 
         /**
-         * Actualizar parte inferior de opciones
-         * Cuando se aumenta o disminuye la dificultad se ofrecen las posibles respuestas al usuario
+         * Updates the options dialog
+         * When the difficulty increases or decreases, the question statement and the options dialog change
          */ 
         private void SetQuestionStatement()
         {
@@ -519,10 +514,5 @@ namespace AprenderIdiomaApp
             }
         }
         #endregion
-
-        private void questionStatement_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
