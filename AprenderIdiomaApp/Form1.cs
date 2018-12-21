@@ -21,22 +21,22 @@ namespace AprenderIdiomaApp
         private SpeechSynthesizer synth = new SpeechSynthesizer();
         //Current topic
         private string currentTopic = "";
-        //Number of correct answers
+        //Número de respuestas correctas y respondidas
         private int correct = 0;
         private int answered = 0;
-        //Current question index
+        //Índice de la question actual
         private int questionIndex = 0;
-        //Questions difficulty
+        //Dificultad de cuestiones
         private int difficultyLevel = 1;
         //Result dialog is present
         private Boolean resultsDialog = false;
         private List<string> currentQuestions = new List<string>();
         //Animals List
-        private string[] animalsList = new string[] { "perro", "gato", "loro", "caballo", "rana", "canario" };
+        private string[] animalsList = new string[] { "perro", "gato", "loro", "caballo", "rana", "canario", "leon", "leopardo" };
         //Colors List
         private string[] colorsList = new string[] { "negro", "blanco", "rojo", "azul", "naranja", "morado", "amarillo", "verde" };
         //AnimalsColorsList
-        private string[] animalsColorsList = new string[] { "gato_negro", "loro_rojo", "canario_amarillo" };
+        private string[] animalsColorsList = new string[] { "gato_negro", "loro_rojo", "canario_amarillo", "perro_blanco" };
         private Dictionary<string, string[]> topicsAnswers = new Dictionary<string, string[]>();
         
         public Form1()
@@ -118,7 +118,6 @@ namespace AprenderIdiomaApp
             topics = new GrammarBuilder(semanticResultKey);
             wantQuestionsExtended.Append(topics);
             Choices select = new Choices(wantQuestions, wantQuestionsExtended);
-            
 
             //4. Empezar de nuevo
             GrammarBuilder beginAgain = "Empezar de nuevo";
@@ -193,7 +192,8 @@ namespace AprenderIdiomaApp
             {
                 NextCuestion();
             }
-            else if (text.Contains("ayuda")) {
+            else if (text.Contains("ayuda"))
+            {
                 NeedHelp();
             }
             else if (text.Contains("Empezar"))
@@ -281,14 +281,14 @@ namespace AprenderIdiomaApp
                     if(difficultyLevel < 2)
                     {
                         difficultyLevel++;
-                        setQuestionStatement();
+                        SetQuestionStatement();
                     }
                 } else
                 {
                     if(difficultyLevel > 0)
                     {
                         difficultyLevel--;
-                        setQuestionStatement();
+                        SetQuestionStatement();
                     }
                 }
             }
@@ -351,7 +351,7 @@ namespace AprenderIdiomaApp
             {
                 questionNumber.Text = "1";
             }
-            setQuestionStatement();
+            SetQuestionStatement();
             SetImage();
         }
 
@@ -405,7 +405,7 @@ namespace AprenderIdiomaApp
         }
 
         /**
-         * Shows an error message
+         * Muestra mensaje de error
          */ 
         private void ShowError()
         {
@@ -413,7 +413,7 @@ namespace AprenderIdiomaApp
         }
 
         /**
-         * Sets the current question image
+         * Modifica la imagen
          */ 
         private void SetImage()
         {
@@ -448,7 +448,7 @@ namespace AprenderIdiomaApp
          * Actualizar parte inferior de opciones
          * Cuando se aumenta o disminuye la dificultad se ofrecen las posibles respuestas al usuario
          */ 
-        private void setQuestionStatement()
+        private void SetQuestionStatement()
         {
             if (currentTopic.Length == 0)
             {
@@ -487,7 +487,6 @@ namespace AprenderIdiomaApp
                     }
                     break;
                 case 1:
-                    //Desaparecen las opciones
                     if (currentTopic.Equals("animales"))
                     {
                         this.questionStatement.Text = "Este animal es un _________";
@@ -520,5 +519,10 @@ namespace AprenderIdiomaApp
             }
         }
         #endregion
+
+        private void questionStatement_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

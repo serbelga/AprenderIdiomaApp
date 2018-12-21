@@ -153,6 +153,26 @@ namespace AprenderIdiomaApp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap leon {
+            get {
+                object obj = ResourceManager.GetObject("leon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap leopardo {
+            get {
+                object obj = ResourceManager.GetObject("leopardo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap loro {
             get {
                 object obj = ResourceManager.GetObject("loro", resourceCulture);
@@ -206,6 +226,16 @@ namespace AprenderIdiomaApp.Properties {
         internal static System.Drawing.Bitmap perro {
             get {
                 object obj = ResourceManager.GetObject("perro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap perro_blanco {
+            get {
+                object obj = ResourceManager.GetObject("perro_blanco", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

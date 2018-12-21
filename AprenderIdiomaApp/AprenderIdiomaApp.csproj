@@ -90,9 +90,6 @@
     <None Include="Resources\animales_1.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\animales_1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\colores_0.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,43 +99,10 @@
     <None Include="Resources\colores_2.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\animales_0.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\animales_colores_0.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\colores_0.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\colores_1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\colores_2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\colores_3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\colores_4.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\colores_5.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Assets\very_dissatisfied.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\very_satisfied.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\animales_colores_1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\animales_2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\animales_colores_2.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\gato.jpg" />
@@ -190,6 +154,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\loro_rojo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\leon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\leopardo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\perro_blanco.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
