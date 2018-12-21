@@ -21,15 +21,16 @@ namespace AprenderIdiomaApp
         private SpeechSynthesizer synth = new SpeechSynthesizer();
         //Current topic
         private string currentTopic = "";
-        //Número de respuestas correctas y respondidas
+        //Correct and answered cuestions
         private int correct = 0;
         private int answered = 0;
-        //Índice de la question actual
+        //Current Question Index
         private int questionIndex = 0;
-        //Dificultad de cuestiones
+        //Level difficulty
         private int difficultyLevel = 1;
-        //Result dialog is present
+        //Result dialog is shown
         private Boolean resultsDialog = false;
+        
         private List<string> currentQuestions = new List<string>();
         //Animals List
         private string[] animalsList = new string[] { "perro", "gato", "loro", "caballo", "rana", "canario", "leon", "leopardo" };
@@ -37,12 +38,11 @@ namespace AprenderIdiomaApp
         private string[] colorsList = new string[] { "negro", "blanco", "rojo", "azul", "naranja", "morado", "amarillo", "verde" };
         //AnimalsColorsList
         private string[] animalsColorsList = new string[] { "gato_negro", "loro_rojo", "canario_amarillo", "perro_blanco" };
+
         private Dictionary<string, string[]> topicsAnswers = new Dictionary<string, string[]>();
         
         public Form1()
         {
-            //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             InitializeComponent();
             InitializeTopics();
             pictureBox1.Image = AprenderIdiomaApp.Properties.Resources.globe;
@@ -75,11 +75,11 @@ namespace AprenderIdiomaApp
         }
 
         /**
-         * Creación de la grámatica
+         * Grammar creation
          */ 
         private Grammar CreateGrammarBuilderSemantics(object p)
         {
-            //1. Cerrar la aplicación
+            //1. Close application
             GrammarBuilder close = "Cierra";
             GrammarBuilder close1 = "Cerrar";
             GrammarBuilder exit = "Salir de";
@@ -88,7 +88,7 @@ namespace AprenderIdiomaApp
             GrammarBuilder closeApplication = new GrammarBuilder(closeCh);
             closeApplication.Append(application);
 
-            //2. Seleccionar temas
+            //2. Select topics
             GrammarBuilder want = "Quiero";
             GrammarBuilder give = "Dame";
             Choices wantCh = new Choices(want, give);
@@ -109,7 +109,7 @@ namespace AprenderIdiomaApp
             wantQuestions.Append(questionsCh);
             wantQuestions.Append(topics);
 
-            //3. Seleccionar temas extendido
+            //3. Select topic extended
             GrammarBuilder wantQuestionsExtended = wantCh;
             wantQuestionsExtended.Append(questionsCh);
             wantQuestionsExtended.Append(topics);
@@ -119,14 +119,14 @@ namespace AprenderIdiomaApp
             wantQuestionsExtended.Append(topics);
             Choices select = new Choices(wantQuestions, wantQuestionsExtended);
 
-            //4. Empezar de nuevo
+            //4. Begin again
             GrammarBuilder beginAgain = "Empezar de nuevo";
 
-            //5. Necesito ayuda
+            //5. Need help
             GrammarBuilder needHelp = "Necesito ayuda";
 
-            //Respuestas
-            //6. Múltiples respuestas
+            //Answers
+            //6. Multiple answers
             GrammarBuilder animalsColorsAnswers = new GrammarBuilder("Este animal es un");
 
             Choices animalsCh = new Choices();
@@ -154,25 +154,25 @@ namespace AprenderIdiomaApp
             GrammarBuilder colors = new GrammarBuilder(semanticResultKey);
             animalsColorsAnswers.Append(colors);
             
-            //7. Respuesta animales
+            //7. Animals answer
             GrammarBuilder animalsAnswers = "Este animal es un";
             animalsAnswers.Append(animals);
 
-            //8. Respuesta colores
+            //8. Colors answer
             GrammarBuilder colorsAnswers = "Este color es el";
             colorsAnswers.Append(colors);
 
-            //9. Pregunta siguiente
+            //9. Next Question
             Choices nextQuestion = new Choices("pregunta siguiente", "siguiente pregunta");
 
-            //10. Aumentar y disminuir dificultad de las preguntas
+            //10. Increase and decrease difficulty
             GrammarBuilder increaseDifficulty = "aumentar dificultad";
             GrammarBuilder decreaseDifficulty = "disminuir dificultad";
             Choices difficulty = new Choices(increaseDifficulty, decreaseDifficulty);
-            Choices opciones = new Choices(beginAgain, needHelp, closeApplication, select, nextQuestion, animalsAnswers, colorsAnswers, animalsColorsAnswers, difficulty);
-            Grammar grammar = new Grammar(opciones);
+            Choices choices = new Choices(beginAgain, needHelp, closeApplication, select, nextQuestion, animalsAnswers, colorsAnswers, animalsColorsAnswers, difficulty);
+            Grammar grammar = new Grammar(choices);
             
-            //Nombre gramática
+            //Grammar name
             grammar.Name = "Questions";
             return grammar;
         }
